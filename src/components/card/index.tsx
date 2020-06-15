@@ -1,11 +1,13 @@
 import React, { FC } from 'react';
 
-import { Container } from './styles';
+import { Container, Title, Row } from './styles';
 
 const Card: FC = () => {
   return (
     <Container>
-      <p>Starting a card !!</p>
+      <Title>Area Divison</Title>
+      <Row> I am a Row </Row>
+      <Row> I am a Row </Row>
     </Container>
   );
 };

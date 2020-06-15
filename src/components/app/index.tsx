@@ -9,22 +9,7 @@ import { Card } from 'components';
 const App: FC = () => {
   return (
     <>
-      <Viewer
-        infoBox={false}
-        selectionIndicator={false}
-        shadows={false}
-        shouldAnimate={false}
-        baseLayerPicker={false}
-        scene3DOnly={true}
-        projectionPicker={false}
-        homeButton={false}
-        navigationHelpButton={false}
-        geocoder={false}
-        useBrowserRecommendedResolution={true}
-        full
-      >
-        <Card />
-      </Viewer>
+      <Card />
     </>
   );
 };
