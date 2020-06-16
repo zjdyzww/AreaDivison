@@ -2,12 +2,17 @@ import React, { FC } from 'react';
 
 import { Container, Title, Row } from './styles';
 
+import { AddAreaButton, AreaList } from 'components';
+
 const Card: FC = () => {
   return (
     <Container>
       <Title>Area Divison</Title>
-      <Row> I am a Row </Row>
-      <Row> I am a Row </Row>
+      <Row>
+        {' '}
+        <AddAreaButton />
+      </Row>
+      <AreaList />
     </Container>
   );
 };

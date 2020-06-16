@@ -8,12 +8,15 @@ const initialState: IReducer = {};
 function reducer(state = initialState, action: AnyAction): IReducer {
   switch (action.type) {
     case types.ADD_AREA:
-      let areaList = state.areaList ? state.areaList : [];
-      areaList.push(action.areas);
-      return { ...state, areaList };
+      if (action.area) {
+        let areaList = state.areaList ? state.areaList : [];
+        areaList.push(action.area);
+        return { ...state, areaList };
+      }
+      return state;
     case types.REMOVE_AREA:
-      areaList = state.areaList
-        ? state.areaList.filter((item) => item.areaName == action.areaName)
+      let areaList = state.areaList
+        ? state.areaList.filter((item) => item.areaName !== action.areaName)
         : [];
       return { ...state, areaList };
     default:

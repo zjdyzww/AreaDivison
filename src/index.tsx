@@ -3,13 +3,20 @@ import ReactDOM from 'react-dom';
 import { ThemeProvider } from 'styled-components';
 import { theme } from 'styles';
 
+import { PersistGate } from 'redux-persist/integration/react';
+import { Provider } from 'react-redux';
+
 import { App } from 'components';
-import { unregister } from './core';
+import { unregister, configStore } from 'core';
+
+const { persistor, store } = configStore();
 
 ReactDOM.render(
   <React.StrictMode>
     <ThemeProvider theme={theme}>
-      <App />
+      <Provider store={store}>
+        <App />
+      </Provider>
     </ThemeProvider>
   </React.StrictMode>,
   document.getElementById('root')
