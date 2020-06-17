@@ -8,7 +8,7 @@ export const Container = styled.div`
     background-color: ${theme.colors.white};
     display: flex;
     border-radius: 15px;
-    max-height: fit-content;
+    max-height: 500px;
     padding: 0px;
     flex-direction: column;
     flex: 1;

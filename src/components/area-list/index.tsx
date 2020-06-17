@@ -8,6 +8,8 @@ import { Row } from '../card/styles';
 
 import { Area } from 'components';
 
+import { Container } from './styles';
+
 interface IState {
   areaList?: AREAS;
 }
@@ -23,13 +25,13 @@ const AreaList: FC = () => {
     ? state.areaList.map((item, index) => {
         componentsToDisplay.push(
           <Row key={index}>
-            <Area area={item} />
+            <Area area={item} index={index} />
           </Row>
         );
       })
     : [];
 
-  return <>{componentsToDisplay}</>;
+  return <Container>{componentsToDisplay}</Container>;
 };
 
 export default AreaList;

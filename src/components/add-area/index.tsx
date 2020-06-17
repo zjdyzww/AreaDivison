@@ -5,6 +5,8 @@ import { Dispatch, AnyAction } from 'redux';
 import { IReducer, addArea } from 'reducers';
 import { AREAS, AREA, AREANAME, POINTS } from 'typings';
 
+import { Button } from './styles';
+
 interface IState {
   areaList?: AREAS;
 }
@@ -18,9 +20,11 @@ const AddAreaButton: FC = () => {
 
   const addAreaToList = useCallback(() => {
     const len = state.areaList
-      ? parseInt(
-          state.areaList[state.areaList.length - 1].areaName.split('_')[1]
-        )
+      ? state.areaList.length !== 0
+        ? parseInt(
+            state.areaList[state.areaList.length - 1].areaName.split('_')[1]
+          )
+        : 0
       : 0;
     let areaName: AREANAME = 'Area_' + (len + 1).toString();
     let points: POINTS = [];
@@ -32,7 +36,7 @@ const AddAreaButton: FC = () => {
   //    <Row key={index}>{item.areaName}</Row>
   //  ));
 
-  return <button onClick={addAreaToList}>AddArea</button>;
+  return <Button onClick={addAreaToList}>ADD AREA</Button>;
 };
 
 export default AddAreaButton;

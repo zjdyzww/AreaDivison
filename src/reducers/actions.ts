@@ -12,3 +12,9 @@ export const removeArea = (areaName: AREANAME): AnyAction => ({
   areaName,
   type: types.REMOVE_AREA,
 });
+
+export const modifyArea = (index: number, area: AREA): AnyAction => ({
+  index,
+  area,
+  type: types.MODIFY_AREA,
+});

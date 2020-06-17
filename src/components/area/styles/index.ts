@@ -8,7 +8,9 @@ export const Container = styled.div`
     padding-top: 5px;
     padding-bottom: 5px;
     flex-direction: row;
-    margin: 10px;
+    margin: 12px;
+    margin-right: 2px;
+    margin-top: 0px;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
     transition: 0.3s;
     :hover {
@@ -25,22 +27,12 @@ export const DeleteButton = styled.div`
     flex: 1;
     opacity: 0.3;
     align-items: center;
+    color: #333;
+    font-family: Arial, sans-serif;
+    font-weight: bold;
+    cursor: pointer;
     :hover {
       opacity: 1;
-    }
-    :before,
-    :after {
-      position: absolute;
-      content: ' ';
-      height: 10px;
-      width: 2px;
-      background-color: #333;
-    }
-    :before {
-      transform: rotate(45deg);
-    }
-    :after {
-      transform: rotate(-45deg);
     }
   `}
 `;
@@ -49,5 +41,36 @@ export const AreaNameInput = styled.input`
   ${({ theme }) => css`
     display: flex;
     flex-grow: 10;
+    margin-right: 5px;
+  `}
+`;
+
+export const ShowButton = styled.button`
+  ${({ theme }) => css`
+    align-items: center;
+    background-color: ${theme.colors.maroon};
+    border: 2px solid ${theme.colors.maroon};
+    border-radius: 4px;
+    color: ${theme.colors.white};
+    cursor: pointer;
+    display: flex;
+    flex: 1;
+    font-size: 16px;
+    font-weight: bold;
+    height: 20px;
+    justify-content: center;
+    margin-left: 5px;
+    min-height: 20px;
+    opacity: 0.9;
+    padding: 10px;
+    transition: ${theme.transition};
+
+    &:focus {
+      outline: none;
+    }
+
+    &:hover {
+      opacity: 0.6;
+    }
   `}
 `;

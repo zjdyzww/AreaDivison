@@ -19,6 +19,10 @@ function reducer(state = initialState, action: AnyAction): IReducer {
         ? state.areaList.filter((item) => item.areaName !== action.areaName)
         : [];
       return { ...state, areaList };
+    case types.MODIFY_AREA:
+      let list = state.areaList ? state.areaList : [];
+      list[action.index] = action.area;
+      return { ...state, areaList: list };
     default:
       return state;
   }
