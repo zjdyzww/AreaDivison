@@ -9,6 +9,7 @@ export interface POINT {
 export interface AREA {
   areaName: AREANAME;
   points: POINTS;
+  show: boolean;
 }
 
 export type AREAS = AREA[];

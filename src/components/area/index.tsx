@@ -28,11 +28,18 @@ const Area: FC<IProps> = ({ area, index }) => {
     [dispatch, area]
   );
 
+  const showArea = useCallback(() => {
+    area.show = !area.show;
+    dispatch(modifyArea(index, area));
+  }, [dispatch, area]);
+
   return (
     <Container>
       <DeleteButton onClick={removeAreaFromList}>x</DeleteButton>
       <AreaNameInput type="text" value={area.areaName} onChange={modifyName} />
-      <ShowButton>Show</ShowButton>
+      <ShowButton onClick={showArea}>
+        {area.show === false ? 'Show' : 'Hide'}
+      </ShowButton>
     </Container>
   );
 };

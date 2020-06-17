@@ -28,7 +28,8 @@ const AddAreaButton: FC = () => {
       : 0;
     let areaName: AREANAME = 'Area_' + (len + 1).toString();
     let points: POINTS = [];
-    let area: AREA = { areaName, points };
+    let show: boolean = false;
+    let area: AREA = { areaName, points, show };
     dispatch(addArea(area));
   }, [dispatch, state.areaList]);
 
