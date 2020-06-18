@@ -3,11 +3,11 @@ import styled, { css } from 'styled-components';
 export const Container = styled.div`
   ${({ theme }) => css`
     display: flex;
-    flex-grow: 1;
     justify-content: center;
     padding-top: 5px;
     padding-bottom: 5px;
-    flex-direction: row;
+    flex-grow: 1;
+    flex-direction: column;
     margin: 12px;
     margin-right: 2px;
     margin-top: 0px;
@@ -17,6 +17,13 @@ export const Container = styled.div`
       box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
     }
     padding: 10px;
+  `}
+`;
+
+export const Row = styled.div`
+  ${({ theme }) => css`
+    display: flex;
+    flex-direction: row;
   `}
 `;
 
@@ -72,5 +79,16 @@ export const ShowButton = styled.button`
     &:hover {
       opacity: 0.6;
     }
+  `}
+`;
+
+interface IProps {
+  show: boolean;
+}
+
+export const PointsContainer = styled.div<IProps>`
+  ${({ theme, show }) => css`
+    display: ${show ? 'flex' : 'none'};
+    flex: 1;
   `}
 `;

@@ -6,7 +6,14 @@ import { removeArea, modifyArea } from 'reducers';
 
 import { AREA } from 'typings';
 
-import { Container, DeleteButton, AreaNameInput, ShowButton } from './styles';
+import {
+  Container,
+  DeleteButton,
+  AreaNameInput,
+  ShowButton,
+  Row,
+  PointsContainer,
+} from './styles';
 
 interface IProps {
   area: AREA;
@@ -35,11 +42,22 @@ const Area: FC<IProps> = ({ area, index }) => {
 
   return (
     <Container>
-      <DeleteButton onClick={removeAreaFromList}>x</DeleteButton>
-      <AreaNameInput type="text" value={area.areaName} onChange={modifyName} />
-      <ShowButton onClick={showArea}>
-        {area.show === false ? 'Show' : 'Hide'}
-      </ShowButton>
+      <Row>
+        <DeleteButton onClick={removeAreaFromList}>x</DeleteButton>
+        <AreaNameInput
+          type="text"
+          value={area.areaName}
+          onChange={modifyName}
+        />
+        <ShowButton onClick={showArea}>
+          {area.show === false ? 'Show' : 'Hide'}
+        </ShowButton>
+      </Row>
+      <Row>
+        <PointsContainer show={area.show}>
+          I show my points list!!
+        </PointsContainer>
+      </Row>
     </Container>
   );
 };
