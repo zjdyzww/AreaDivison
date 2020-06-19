@@ -81,14 +81,3 @@ export const ShowButton = styled.button`
     }
   `}
 `;
-
-interface IProps {
-  show: boolean;
-}
-
-export const PointsContainer = styled.div<IProps>`
-  ${({ theme, show }) => css`
-    display: ${show ? 'flex' : 'none'};
-    flex: 1;
-  `}
-`;

@@ -23,6 +23,10 @@ function reducer(state = initialState, action: AnyAction): IReducer {
       let list = state.areaList ? state.areaList : [];
       list[action.index] = action.area;
       return { ...state, areaList: list };
+    case types.MODIFY_POINTS:
+      let modifiedList = state.areaList ? state.areaList : [];
+      modifiedList[action.areaIndex].points = action.points;
+      return { ...state, areaList: modifiedList };
     default:
       return state;
   }

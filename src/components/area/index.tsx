@@ -12,8 +12,9 @@ import {
   AreaNameInput,
   ShowButton,
   Row,
-  PointsContainer,
 } from './styles';
+
+import { PointsContainer } from 'components';
 
 interface IProps {
   area: AREA;
@@ -32,13 +33,13 @@ const Area: FC<IProps> = ({ area, index }) => {
       area.areaName = event.target.value;
       dispatch(modifyArea(index, area));
     },
-    [dispatch, area]
+    [dispatch, area, index]
   );
 
   const showArea = useCallback(() => {
     area.show = !area.show;
     dispatch(modifyArea(index, area));
-  }, [dispatch, area]);
+  }, [dispatch, area, index]);
 
   return (
     <Container>
@@ -54,9 +55,11 @@ const Area: FC<IProps> = ({ area, index }) => {
         </ShowButton>
       </Row>
       <Row>
-        <PointsContainer show={area.show}>
-          I show my points list!!
-        </PointsContainer>
+        <PointsContainer
+          show={area.show}
+          points={area.points}
+          areaIndex={index}
+        />
       </Row>
     </Container>
   );
