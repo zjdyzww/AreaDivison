@@ -11,3 +11,19 @@ export const Container = styled.div<IProps>`
     flex-direction: column;
   `}
 `;
+
+export const Header1 = styled.div`
+  ${({ theme }) => css`
+    display: flex;
+    flex: 1;
+    justify-content: center;
+  `}
+`;
+
+export const Header2 = styled.div`
+  ${({ theme }) => css`
+    display: flex;
+    flex: 3;
+    justify-content: center;
+  `}
+`;

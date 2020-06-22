@@ -1,7 +1,7 @@
 import { AnyAction } from 'redux';
 
 import * as types from './types';
-import { AREA, AREANAME, POINTS } from 'typings';
+import { AREA, AREANAME, POINTS, POINT } from 'typings';
 
 export const addArea = (area: AREA): AnyAction => ({
   area,
@@ -23,4 +23,24 @@ export const modifyPoints = (areaIndex: number, points: POINTS): AnyAction => ({
   areaIndex,
   points,
   type: types.MODIFY_POINTS,
+});
+
+export const modifyPoint = (
+  areaIndex: number,
+  pointIndex: number,
+  point: POINT
+): AnyAction => ({
+  areaIndex,
+  pointIndex,
+  point,
+  type: types.MODIFY_POINT,
+});
+
+export const deletePoint = (
+  areaIndex: number,
+  pointIndex: number
+): AnyAction => ({
+  areaIndex,
+  pointIndex,
+  type: types.DELETE_POINT,
 });

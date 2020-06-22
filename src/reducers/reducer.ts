@@ -27,6 +27,15 @@ function reducer(state = initialState, action: AnyAction): IReducer {
       let modifiedList = state.areaList ? state.areaList : [];
       modifiedList[action.areaIndex].points = action.points;
       return { ...state, areaList: modifiedList };
+    case types.MODIFY_POINT:
+      let modifiedareaList = state.areaList ? state.areaList : [];
+      modifiedareaList[action.areaIndex].points[action.pointIndex] =
+        action.point;
+      return { ...state, areaList: modifiedareaList };
+    case types.DELETE_POINT:
+      let areaListModified = state.areaList ? state.areaList : [];
+      areaListModified[action.areaIndex].points.splice(action.pointIndex, 1);
+      return { ...state, areaList: areaListModified };
     default:
       return state;
   }

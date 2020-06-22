@@ -1,8 +1,16 @@
 import React, { FC, useCallback } from 'react';
 import { useDispatch } from 'react-redux';
 import { Dispatch, AnyAction } from 'redux';
+import { useCesium } from 'resium';
+import {
+  ScreenSpaceEventType,
+  ScreenSpaceEventHandler,
+  Cartesian3,
+  Cartographic,
+  Math,
+} from 'cesium';
 
-import { Container } from './styles';
+import { Container, Header1, Header2 } from './styles';
 
 import { Button } from '../add-area/styles';
 
@@ -12,6 +20,8 @@ import { POINTS, POINT } from 'typings';
 
 import { Point } from 'components';
 
+import { Row } from '../area/styles';
+
 interface IProps {
   show: boolean;
   points: POINTS;
@@ -19,18 +29,48 @@ interface IProps {
 }
 
 const PointsContainer: FC<IProps> = ({ show, points, areaIndex }) => {
+  let context = useCesium<{
+    viewer?: Cesium.Viewer;
+  }>();
+
+  let scene = context.viewer ? context.viewer.scene : undefined;
+
+  let handler = scene ? new ScreenSpaceEventHandler(scene.canvas) : undefined;
+
   const dispatch = useDispatch<Dispatch<AnyAction>>();
 
   const addPoints = useCallback(() => {
-    let pointsList = points;
-    let pointToBeInserted: POINT = {
-      lat: 90.45237,
-      lon: 90.45237,
-      alt: 10000.0,
-    };
-    pointsList.push(pointToBeInserted);
-    dispatch(modifyPoints(areaIndex, pointsList));
-  }, [dispatch, points, areaIndex]);
+    if (handler) {
+      window.alert('Please Double LEft Click on the Globe to select a point!!');
+      handler.setInputAction((clickEvent) => {
+        let cartesian: Cartesian3 | undefined =
+          context.viewer && scene
+            ? context.viewer.camera.pickEllipsoid(
+                clickEvent.position,
+                scene?.globe.ellipsoid
+              )
+            : undefined;
+        if (cartesian) {
+          handler
+            ? handler.removeInputAction(ScreenSpaceEventType.LEFT_DOUBLE_CLICK)
+            : null;
+          let cartographic: Cartographic = Cartographic.fromCartesian(
+            cartesian
+          );
+          let pointsList = points;
+          let pointToBeInserted: POINT = {
+            lat: Math.toDegrees(cartographic.longitude),
+            lon: Math.toDegrees(cartographic.latitude),
+            alt: 10000.0,
+          };
+          pointsList.push(pointToBeInserted);
+          dispatch(modifyPoints(areaIndex, pointsList));
+        } else {
+          alert('Please click within the Globe !!');
+        }
+      }, ScreenSpaceEventType.LEFT_DOUBLE_CLICK);
+    }
+  }, [dispatch, points, areaIndex, context.viewer, scene, handler]);
 
   const pointsListToDisplay: any[] = [];
 
@@ -48,6 +88,12 @@ const PointsContainer: FC<IProps> = ({ show, points, areaIndex }) => {
   return (
     <Container show={show}>
       <Button onClick={addPoints}>ADD POINTS</Button>
+      <Row>
+        <Header1>SNo</Header1>
+        <Header2>Lat</Header2>
+        <Header2>Lon</Header2>
+        <Header2>Alt</Header2>
+      </Row>
       {pointsListToDisplay}
     </Container>
   );
