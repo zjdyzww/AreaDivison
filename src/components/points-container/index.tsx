@@ -1,13 +1,14 @@
 import React, { FC, useCallback } from 'react';
 import { useDispatch } from 'react-redux';
 import { Dispatch, AnyAction } from 'redux';
-import { useCesium } from 'resium';
+import { useCesium, Polyline, PolylineCollection } from 'resium';
 import {
   ScreenSpaceEventType,
   ScreenSpaceEventHandler,
   Cartesian3,
   Cartographic,
   Math,
+  Entity,
 } from 'cesium';
 
 import { Container, Header1, Header2 } from './styles';
@@ -21,6 +22,7 @@ import { POINTS, POINT } from 'typings';
 import { Point } from 'components';
 
 import { Row } from '../area/styles';
+import { EntityCollection } from 'cesium';
 
 interface IProps {
   show: boolean;
@@ -32,6 +34,10 @@ const PointsContainer: FC<IProps> = ({ show, points, areaIndex }) => {
   let context = useCesium<{
     viewer?: Cesium.Viewer;
   }>();
+
+  let entites: any = new Entity();
+
+  context.viewer?.entities.add(entites);
 
   let scene = context.viewer ? context.viewer.scene : undefined;
 
@@ -74,6 +80,8 @@ const PointsContainer: FC<IProps> = ({ show, points, areaIndex }) => {
 
   const pointsListToDisplay: any[] = [];
 
+  let positions: any = [];
+
   points.map((item, index) => {
     pointsListToDisplay.push(
       <Point
@@ -83,7 +91,10 @@ const PointsContainer: FC<IProps> = ({ show, points, areaIndex }) => {
         key={index}
       />
     );
+    positions.push(new Cartesian3(item.lon, item.lat, item.alt));
   });
+
+  console.log(positions);
 
   return (
     <Container show={show}>
@@ -95,6 +106,9 @@ const PointsContainer: FC<IProps> = ({ show, points, areaIndex }) => {
         <Header2>Alt</Header2>
       </Row>
       {pointsListToDisplay}
+      <PolylineCollection>
+        <Polyline positions={positions} width={3} show={show} loop={true} />
+      </PolylineCollection>
     </Container>
   );
 };
